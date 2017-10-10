@@ -1,5 +1,3 @@
-# lesson-2 分支
+# lesson-3 分支
 
-### 主要讲解的内容 是 if / switch /关系运算符/ 逻辑运算符
-
-### 主要讲解的内容 是 数组 种类/数组取值 赋值
+### 主要讲解的内容 是 for循环/while循环/do while循环/foreach 循环
