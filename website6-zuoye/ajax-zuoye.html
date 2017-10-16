@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax - zuoye</title>
+	<link rel="stylesheet" href="https://bootswatch.com/united/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+			<h1>Users列表组</h1>
+	</div>
+	<div class="container">
+		<button id="button" class="btn btn-warning">请求所有数据 - 1</button>
+		<button id="button-1" class="btn btn-success">请求所有数据 - 2</button>
+	</div>
+	<br>
+	<hr>
+	<div class="container oul">
+		
+	</div>
+	<div class="container oul1">
+		
+	</div>
+</body>
+<script>
+	document.querySelector('#button').addEventListener('click',loadUser);
+	document.querySelector('#button-1').addEventListener('click',loadUser1);
+     function loadUser(){
+     	var xhr = new XMLHttpRequest();
+     	xhr.open("GET","users.json",true);
+     	xhr.onreadystatechange = function(){
+     		document.querySelector('.oul1').style.display = 'none';
+     		document.querySelector('.oul').style.display = 'block';
+     		if(this.status==200 && this.readyState==4){
+     			var output='';
+     			var users = JSON.parse(this.responseText);
+     			for (var i in users) {
+     			       output += `
+                           <ul class="list-group">
+								<li class="list-group-item">login: ${users[i].login}</li>
+								<li class="list-group-item">id: ${users[i].id}</li>
+								<li class="list-group-item">avatar_url:<img src="${users[i].avatar_url}" alt="" /> </li>
+								<li class="list-group-item">gravatar_id: ${users[i].gravatar_id}</li>
+								<li class="list-group-item">url: ${users[i].url}</li>
+								<li class="list-group-item">html_url: ${users[i].html_url}</li>
+								<li class="list-group-item">followers_url: ${users[i].followers_url}</li>
+								<li class="list-group-item">following_url: ${users[i].following_url}</li>
+								<li class="list-group-item">gists_url: ${users[i].gists_url}</li>
+								<li class="list-group-item">starred_url: ${users[i].starred_url}</li>
+								<li class="list-group-item">subscriptions_url: ${users[i].subscriptions_url}</li>
+								<li class="list-group-item">organizations_url: ${users[i].organizations_url}</li>
+								<li class="list-group-item">repos_url: ${users[i].repos_url}</li>
+								<li class="list-group-item">events_url: ${users[i].events_url}</li>
+								<li class="list-group-item">received_events_url: ${users[i].received_events_url}</li>
+								<li class="list-group-item">type: ${users[i].type}</li>
+								<li class="list-group-item">site_admin: ${users[i].site_admin}</li>
+							</ul>
+		                           `;
+		     		}
+		     		document.querySelector('.oul').innerHTML = output;
+		     	}
+           }
+                
+     	xhr.send();
+     }
+     function loadUser1(){
+     	document.querySelector('.oul1').style.display = 'block';
+        document.querySelector('.oul').style.display = 'none';
+     	var xhr = new XMLHttpRequest();
+     	xhr.open('GET',"https://jsonplaceholder.typicode.com/users",true);
+     	xhr.onreadystatechange = function(){
+     		if(this.status==200&&this.readyState==4){
+     			var users1 = JSON.parse(this.responseText);
+     			var output = '';
+     			for(var i in users1){
+     				var m = users1[i].address;
+     				var n = users1[i].company;
+                     output += `
+                                <ul class="list-group">
+									<li class="list-group-item">id: ${users1[i].id}</li>
+									<li class="list-group-item">name: ${users1[i].name}</li>
+									<li class="list-group-item">username: ${users1[i].username}</li>
+									<li class="list-group-item">email: ${users1[i].email}</li>
+                                    <li class="list-group-item">street: ${m.street}</li>
+	                                <li class="list-group-item">suite: ${m.suite}</li>
+	                                <li class="list-group-item">city: ${m.city}</li>
+	                                <li class="list-group-item">zipcode: ${m.zipcode}</li>
+	                                <li class="list-group-item">lat: ${m.geo.lat}</li>
+	                                <li class="list-group-item">lng: ${m.geo.lng}</li> 
+	                                <li class="list-group-item">phone: ${users1[i].phone}</li>
+								    <li class="list-group-item">website: ${users1[i].website}</li>  
+								    <li class="list-group-item">name: ${n.name}</li>
+	                                <li class="list-group-item">catchPhrase: ${n.catchPhrase}</li>
+	                                <li class="list-group-item">bs: ${n.bs}</li>                               
+		                        </ul>
+                              `;
+     			}
+     			document.querySelector('.oul1').innerHTML = output;
+
+     		}
+     	}
+     	xhr.send();
+     }
+</script>
+</html>
