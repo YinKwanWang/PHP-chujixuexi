@@ -1,4 +1,4 @@
-# 分支 lesson-12
+#  php课堂代码 分支 lesson-12
 
 ### localhost sql 后台页面语法实现增删改查
 
@@ -17,3 +17,4 @@
 ###   创建一个类  修饰符（能见度）  public 在外面可以访问  protected在外部不能访问 子类和本类可以访问
 
 ### 构造函数 function  __construct 析构函数function __destruct
+
