@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax 3 请求真是接口API</title>
+	<style>
+	/*display : flex; 自适应撑满整行*/
+		.users{background: #f4f4f4;padding: 10px;margin-bottom: 10px;display: flex;}
+		.users ul{list-style: none;}
+	</style>
+</head>
+<body>
+	<button id="button">Github用户列表</button>
+	<br>
+	<h1>Github所有用户信息</h1>
+	<div id="users"></div>
+	<script>
+		document.querySelector('#button').addEventListener('click',loadUsers);
+		function loadUsers(){
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET',"http://api.github.com/users ",true);
+			xhr.onload = function(){
+				var users = JSON.parse(this.responseText);
+			     var output = '';
+			     /*img 可以在里面设置宽高*/
+			     for(var i in users){
+			     	output += `
+                               <div class="users">
+                                    <img src="${users[i].avatar_url}" alt="" width="70" height="70" />
+                               </div>
+                               <ul>
+                                     <li>ID: ${users[i].id}</li>
+                                     <li>login: ${users[i].login}</li>
+                               </ul>
+			     	          `;
+			     }
+			     document.querySelector('#users').innerHTML = output;
+			}
+			xhr.send();
+		}
+	</script>
+</body>
+</html>

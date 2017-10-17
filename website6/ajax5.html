@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax 5 - 请求数据库数据</title>
+</head>
+<body>
+	<button id="button2">请求所有数据</button>
+
+    <h1>所有数据</h1>
+    <div id="users"></div>
+</body>
+<script>
+	document.getElementById("button2").addEventListener('click',loadUser1);
+    /*从数据库里拿数据用 GET*/
+	function loadUser1(){
+		var xhr = new XMLHttpRequest();
+        xhr.open("GET","users.php",true);
+        xhr.onreadystatechange = function(){
+        	if(this.status==200&&this.readyState==4){
+        		var users = JSON.parse(this.responseText);
+        		var output = '';
+        		for (var i in users) {
+        			output +=`
+                          <ul>
+                             <li>ID: ${users[i].id}</li>
+                             <li>NAME: ${users[i].name}</li>
+                          </ul>
+        		          `;
+        		          document.getElementById('users').innerHTML = output; 
+        	     } 
+        	}
+        		
+        }
+        xhr.send();
+	}
+	
+</script>
+</html>

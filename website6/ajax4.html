@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax 4 - 请求PHP接口</title>
+</head>
+<body>
+	<button id="button">获取数据</button>
+
+	<div id="process"></div>
+
+	<h1>AJAX GET FORM</h1>
+	<form id="getForm" action="process.php" method="GET">
+		<input type="text" name="name" id="name1">
+		<input type="submit" value="Submit">
+	</form>
+
+	<h1>POST FORM</h1>
+	<form action="process.php" method="POST">
+		<input type="text" name="name">
+		<input type="submit" value="Submit">
+	</form>
+
+	<h1>AJAX POST FORM</h1>
+	<form id="postForm">
+		<input type="text" name="name" id="name2">
+		<input type="submit" value="Submit">
+	</form>
+</body>
+<script>
+	document.querySelector('#button').addEventListener('click',getDate);
+    document.querySelector('#getForm').addEventListener('submit',getDate2);
+    document.querySelector('#postForm').addEventListener('submit',postDate);
+	function getDate(){
+		var xhr = new XMLHttpRequest();
+	    xhr.open("GET","process.php",true);
+	    xhr.onreadystatechange = function(){
+	    	if(this.status==200&&this.readyState==4){
+	    		console.log(this.responseText);
+	    	}
+	    }
+	    xhr.send();
+	}
+	//重写submit方法 先监听
+	function getDate2(e){
+		// 阻止默认的方法
+		e.preventDefault();
+		var name = document.querySelector('#name1').value;
+		var xhr = new XMLHttpRequest();
+		// ?name=Henry拼接改变方式
+	    // xhr.open("GET","process.php?name=Henry",true);
+	    // value值拼接到请求路径
+	    xhr.open("GET","process.php?name="+name,true);
+	    xhr.onreadystatechange = function(){
+	    	if(this.status==200&&this.readyState==4){
+	    		document.querySelector('#process').innerHTML = this.responseText;
+	    		// console.log(this.responseText);
+	    	}
+	    }
+	    xhr.send();
+	}
+
+	function postDate(e){
+		// 通常在HTTP协议里，客户端像服务器取得某个网页的时候，必须发送一个HTTP协议的头文件， 告诉服务器客户端要下载什么信息以及相关的参数，如：
+        /*
+           setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+
+			setRequestHeader("Content-length", paramsSend.length); 
+
+			setRequestHeader("Connection", "close");
+         */ 
+         e.preventDefault();
+         var name = document.querySelector('#name2').value;
+         // post请求里面需要 变量接收 字符串拼接
+         var params = "name="+name;
+         var xhr = new XMLHttpRequest();
+	     xhr.open("POST","process.php",true);
+
+	     // POST 请求一定要设置请求头
+	     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+	     xhr.onreadystatechange = function(){
+	    	if(this.status==200&&this.readyState==4){
+	    		document.querySelector('#process').innerHTML = this.responseText;
+	    		// console.log(this.responseText)
+	    	}
+	    }
+	    // send 里面可以给两个参数 一个是null 什么也不传 一个是准备好的参数
+	    xhr.send(params);
+	}
+</script>
+</html>
