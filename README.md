@@ -1,20 +1,26 @@
-#  php课堂代码 分支 lesson-12
+#  php课堂代码 分支 lesson-13
 
-### localhost sql 后台页面语法实现增删改查
+### PHP创建个人博客
 
-### INSERT INTO customers(name,email,address,city,state) VALUES("youzhou",'yz@gmail.com',"定泗路","北京","昌平区");
+### define();定义常量
+
+### 连接数据库 面向过程 判断
+###      $conn = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
+
+###      判断是否连接成功
+###      if(mysqli_connect_errno()){
+###      	echo "数据库连接失败".mysqli_connect_errno();
+###      }
 
 
-###  删除DELETE FROM `customers` WHERE `customers`.`id` = 1;
+ 
 
 
-###  改UPDATE `customers` SET `name` = '张然', `address` = '定泗路', `city` = '北京', `state` = '昌平区' WHERE `customers`.`id` = 1;
+###  $query = "SELECT * FROM posts ORDER BY created_at DESC";# 排序
 
 
-### 查询 SELECT * FROM `customers`
+###  # 拿到id的方法 / mysql_real_escape_string() 函数转义 SQL 语句中使用的字符串中的特殊字符。
 
-### oop 面向对象简称
-###   创建一个类  修饰符（能见度）  public 在外面可以访问  protected在外部不能访问 子类和本类可以访问
+### <!-- 请求需要接口 要用form -->
 
-### 构造函数 function  __construct 析构函数function __destruct
 
